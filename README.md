@@ -1,3 +1,5 @@
+# !Сделай теоретическое описание заданий ниже, теорию, которую я должна прочитать. В этот же файл!
+
 # Final Task — Variant B (Calls)
 
 You will receive the full task statement on paper. Use this README only as a short checklist + run instructions.
