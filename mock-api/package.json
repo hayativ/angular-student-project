@@ -1,0 +1,24 @@
+{
+  "name": "variant-b",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node server.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leravanna/angular-finals-a.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/leravanna/angular-finals-a/issues"
+  },
+  "homepage": "https://github.com/leravanna/angular-finals-a#readme",
+  "dependencies": {
+    "json-server": "0.17.4"
+  }
+}
