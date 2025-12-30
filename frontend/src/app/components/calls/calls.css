@@ -42,6 +42,35 @@
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.06);
 }
 
+.quick-ranges {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.range-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn--range {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.btn--range.is-active {
+  background: rgba(0, 0, 0, 0.88);
+  color: #fff;
+  border-color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+}
+
+.btn--range.is-active:hover {
+  background: rgba(0, 0, 0, 0.95);
+  border-color: rgba(0, 0, 0, 0.95);
+}
+
 .meta {
   margin: 6px 0 10px;
   opacity: 0.75;

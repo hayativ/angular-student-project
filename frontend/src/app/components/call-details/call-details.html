@@ -1,1 +1,126 @@
-<h1>Call: {{ id$ | async }}</h1>
+<div class="container">
+  <div class="header">
+    <a class="back-link" routerLink="/calls">← Back to Calls</a>
+    <h1 class="page-title">Call Details</h1>
+  </div>
+
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (call$ | async; as call) {
+    <div class="call-card">
+      <div class="info-grid">
+        <div class="info-row">
+          <span class="label">ID:</span>
+          <span class="value mono">{{ call.id }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Status:</span>
+          <span class="pill">{{ call.status }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Customer:</span>
+          <span class="value">{{ call.customerName || '—' }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Agent:</span>
+          <span class="value">{{ call.agentName || '—' }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Topic:</span>
+          <span class="value">{{ call.topic || '—' }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="label">Scheduled At:</span>
+          <span class="value">{{ call.scheduledAt | date : 'yyyy-MM-dd HH:mm' : 'UTC' }}</span>
+        </div>
+
+        @if (call.startedAt) {
+          <div class="info-row">
+            <span class="label">Started At:</span>
+            <span class="value">{{ call.startedAt | date : 'yyyy-MM-dd HH:mm' : 'UTC' }}</span>
+          </div>
+        }
+
+        @if (call.finishedAt) {
+          <div class="info-row">
+            <span class="label">Finished At:</span>
+            <span class="value">{{ call.finishedAt | date : 'yyyy-MM-dd HH:mm' : 'UTC' }}</span>
+          </div>
+        }
+
+        @if (call.notes) {
+          <div class="info-row full-width">
+            <span class="label">Notes:</span>
+            <span class="value">{{ call.notes }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="actions">
+        @if (canStart(call)) {
+          <button 
+            class="btn btn--primary" 
+            (click)="onStartCall(call.id)"
+            [disabled]="actionLoading"
+          >
+            @if (actionLoading) {
+              <span class="spinner"></span>
+            }
+            Start Call
+          </button>
+        }
+
+        @if (canFinish(call)) {
+          <button 
+            class="btn btn--primary" 
+            (click)="onFinishCall(call.id)"
+            [disabled]="actionLoading"
+          >
+            @if (actionLoading) {
+              <span class="spinner"></span>
+            }
+            Finish Call
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (transcript$ | async; as transcript) {
+      <div class="transcript-card">
+        <h2 class="section-title">Transcript</h2>
+        
+        <div class="transcript-meta">
+          <div class="meta-item">
+            <span class="meta-label">Language:</span>
+            <span class="meta-value">{{ transcript.language }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Created:</span>
+            <span class="meta-value">{{ transcript.createdAt | date : 'yyyy-MM-dd HH:mm' : 'UTC' }}</span>
+          </div>
+        </div>
+
+        <div class="transcript-content">
+          @for (segment of transcript.segments; track $index) {
+            <div class="segment" [class.agent]="segment.speaker === 'agent'" [class.customer]="segment.speaker === 'customer'">
+              <div class="speaker">{{ segment.speaker }}:</div>
+              <div class="text">{{ segment.text }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  } @else {
+    <div class="loading">
+      <span class="spinner"></span>
+      Loading call details...
+    </div>
+  }
+</div>

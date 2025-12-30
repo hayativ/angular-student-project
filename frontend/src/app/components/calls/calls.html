@@ -5,6 +5,26 @@
     <span class="label">From (YYYY-MM-DD)</span>
     <input class="input" [formControl]="fromCtrl" placeholder="2025-12-01" />
   </label>
+
+  <label class="field">
+    <span class="label">To (YYYY-MM-DD)</span>
+    <input class="input" [formControl]="toCtrl" placeholder="2025-12-31" />
+  </label>
+
+  <div class="quick-ranges">
+    <span class="label">Quick ranges:</span>
+    <div class="range-buttons">
+      <button class="btn btn--range" [class.is-active]="activeRange === 'today'" (click)="setToday()">
+        Today
+      </button>
+      <button class="btn btn--range" [class.is-active]="activeRange === 'week'" (click)="setThisWeek()">
+        This Week
+      </button>
+      <button class="btn btn--range" [class.is-active]="activeRange === 'month'" (click)="setThisMonth()">
+        This Month
+      </button>
+    </div>
+  </div>
 </div>
 
 @if (res$ | async; as res) { @if (!res) {
@@ -40,7 +60,7 @@
         <td>
           <span class="pill">{{ c.status }}</span>
         </td>
-        <td class="muted">{{ c.scheduledAt | date : 'yyyy-MM-dd HH:mm' }}</td>
+        <td class="muted">{{ c.scheduledAt | date : 'yyyy-MM-dd HH:mm' : 'UTC' }}</td>
         <td class="muted">{{ c.customerName || '—' }}</td>
         <td class="muted">{{ c.agentName || '—' }}</td>
         <td class="muted">{{ c.topic || '—' }}</td>
